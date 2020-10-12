@@ -7,8 +7,8 @@ const mysql = require('mysql2');
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "rootroot",
-    database: 'pop_db' //CHANGE LE NOM
+    password: "",
+    database: 'ecommerce' //CHANGE LE NOM
 });
 
 con.connect((err)=>{
