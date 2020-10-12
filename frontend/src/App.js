@@ -1,19 +1,17 @@
-import React from 'react';
-import './App.css';
-import Home from './components/home/Home'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import React from "react";
+import "./App.css";
+import Home from "./components/home/Home";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends React.Component {
-  render(){
+  render() {
     return (
       <div className="App">
-        <Home/>
-        <p>hello</p>
+        <Home />
+        <p>hello </p>
       </div>
     );
   }
- 
 }
 
 export default App;
