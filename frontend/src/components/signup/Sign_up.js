@@ -1,8 +1,10 @@
 import React from "react";
+import Header from "../header/Header";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 import { signup } from "../../storeRedux/actions/signupAction";
+import axios from "axios";
 
 class SignUp extends React.Component {
   constructor() {
@@ -12,6 +14,7 @@ class SignUp extends React.Component {
       name: "",
       email: "",
       password: "",
+      alreadyUse: false,
     };
   }
   onSubmitHandler = (e) => {
@@ -33,15 +36,29 @@ class SignUp extends React.Component {
     });
   };
   formComplete = () => {
-    return {
+    let formInfo = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
     };
+    axios
+      .post("http://localhost:8000/users/sign-up", formInfo)
+      .then((response) => {
+        if (response.data === "This email is already in use") {
+          this.state.alreadyUse = true;
+        } else if (response.data === "user well inserted") {
+          this.state.alreadyUse = false;
+          this.props.signup(formInfo);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   render() {
     return (
       <div>
+        <Header></Header>
         <Form onSubmit={this.onSubmitHandler}>
           <Form.Group>
             <Form.Label>Name:</Form.Label>
@@ -79,7 +96,7 @@ class SignUp extends React.Component {
           </Form.Group> */}
 
           <Button
-            onClick={() => this.props.signup(this.formComplete())}
+            onClick={() => this.formComplete()}
             variant="primary"
             type="submit"
           >

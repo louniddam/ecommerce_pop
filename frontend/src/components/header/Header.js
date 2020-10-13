@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+class Header extends React.Component {
+  render() {
+    return (
+      <header>
+        <nav>
+          <Link to="/">Home</Link>
 
-class Header extends React.Component{
-    render(){
-        return(
-                <header>
-                    <nav>
-                        <h1>Olou</h1>
-                        <button>Sign in</button>
-                        <button>Sign up</button>
-                    </nav>
-                </header>
-        );
-    }
+          <br />
+          <Link to="/signup">Signup</Link>
+        </nav>
+      </header>
+    );
+  }
 }
 
 export default Header;

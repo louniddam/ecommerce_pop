@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // import App from "../App.js";
 import SignUp from "./components/signup/Sign_up";
+import SignIn from "./components/signin/Sign_in";
 import { createStore } from "redux";
 import allReducers from "./storeRedux/reducers";
 
