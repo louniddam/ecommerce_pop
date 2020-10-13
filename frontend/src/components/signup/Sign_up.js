@@ -14,6 +14,7 @@ class SignUp extends React.Component {
       name: "",
       email: "",
       password: "",
+      profile_picture: "",
       alreadyUse: false,
     };
   }
@@ -35,19 +36,29 @@ class SignUp extends React.Component {
       password: e.target.value,
     });
   };
+  handleProfilePictureChange = (e) => {
+    this.setState({
+      profile_picture: e.target.value,
+    });
+  };
   formComplete = () => {
     let formInfo = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
+      profile_picture: this.state.profile_picture,
     };
     axios
       .post("http://localhost:8000/users/sign-up", formInfo)
       .then((response) => {
         if (response.data === "This email is already in use") {
-          this.state.alreadyUse = true;
+          this.setState({
+            alreadyUse: true,
+          });
         } else if (response.data === "user well inserted") {
-          this.state.alreadyUse = false;
+          this.setState({
+            alreadyUse: false,
+          });
           this.props.signup(formInfo);
         }
       })
@@ -87,6 +98,15 @@ class SignUp extends React.Component {
               onChange={this.handlePasswordChange}
               type="password"
               placeholder="Password"
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Profile Picture:</Form.Label>
+            <Form.Control
+              onChange={this.handleProfilePictureChange}
+              type="text"
+              placeholder="Name"
             />
           </Form.Group>
 

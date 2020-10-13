@@ -12,6 +12,7 @@ router.post("/users/sign-up", (req, res) => {
   let name = req.body.name;
   let email = req.body.email;
   let password = req.body.password;
+  let image = req.body.profile_picture;
 
   let verif = `SELECT email FROM users WHERE email = '${email}';`;
   con.query(verif, (err, result) => {
@@ -21,7 +22,7 @@ router.post("/users/sign-up", (req, res) => {
       res.status(200).send("This email is already in use");
     } else {
       bcrypt.hash(password, saltRounds).then((hash) => {
-        let sql = `INSERT INTO users (name, email, password) VALUES('${name}','${email}','${hash}');`;
+        let sql = `INSERT INTO users (name, email, password, profile_picture) VALUES('${name}','${email}','${hash}','${image}');`;
         con.query(sql, (err, result) => {
           if (err) throw err;
           res.status(200).send("user well inserted");
@@ -50,11 +51,13 @@ router.post("/users/sign-in", (req, res) => {
     if (!result.length) {
       res.status(200).send("Email or Password is incorrect");
     } else {
+      console.log(result);
       let token = jwt.sign(
         {
           name: result[0].name,
           id: result[0].id,
           email: result[0].email,
+          profile_picture: result[0].profile_picture,
         },
         "secret",
         {
