@@ -2,8 +2,7 @@ import React from "react";
 import Header from "../header/Header";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { connect } from "react-redux";
-import { signup } from "../../storeRedux/actions/signupAction";
+
 import axios from "axios";
 
 class SignUp extends React.Component {
@@ -59,7 +58,6 @@ class SignUp extends React.Component {
           this.setState({
             alreadyUse: false,
           });
-          this.props.signup(formInfo);
         }
       })
       .catch((err) => {
@@ -70,6 +68,7 @@ class SignUp extends React.Component {
     return (
       <div>
         <Header></Header>
+
         <Form onSubmit={this.onSubmitHandler}>
           <Form.Group>
             <Form.Label>Name:</Form.Label>
@@ -80,7 +79,7 @@ class SignUp extends React.Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="formBasicEmailSignup">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={this.handleEmailChange}
@@ -92,7 +91,7 @@ class SignUp extends React.Component {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="formBasicPasswordSignpassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={this.handlePasswordChange}
@@ -128,10 +127,4 @@ class SignUp extends React.Component {
   }
 }
 
-const mapDispatchToProps = { signup }; //
-const mapStateToProps = (state) => {
-  return {
-    signup: state.signup,
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;

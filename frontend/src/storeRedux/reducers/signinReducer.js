@@ -1,13 +1,14 @@
-const signinReducer = (state = 0, action) => {
-  console.log(action);
-  console.log(action.type);
-  console.log(action.payload);
+const initialStates = {
+  userToken: {},
+  // In usertoken , there is token More Id email etc... of user
+};
+const signinReducer = (state = initialStates, action) => {
   switch (action.type) {
     case "CONNECTED":
-      return { ...state, user: action.payload };
+      return { ...state, userToken: action.payload };
 
     default:
-      return (state = false);
+      return state;
   }
 };
 

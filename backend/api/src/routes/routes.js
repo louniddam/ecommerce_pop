@@ -51,7 +51,6 @@ router.post("/users/sign-in", (req, res) => {
     if (!result.length) {
       res.status(200).send("Email or Password is incorrect");
     } else {
-      console.log(result);
       let token = jwt.sign(
         {
           name: result[0].name,

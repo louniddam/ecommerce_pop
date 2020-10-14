@@ -1,7 +1,6 @@
-export const signin = (formInfo) => {
-  console.log(formInfo);
+export const signinAction = (tokenDecoded) => {
   return {
     type: "CONNECTED",
-    payload: formInfo,
+    payload: tokenDecoded,
   };
 };

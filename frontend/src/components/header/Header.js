@@ -9,6 +9,8 @@ class Header extends React.Component {
 
           <br />
           <Link to="/signup">Signup</Link>
+          <br />
+          <Link to="/productform">Product Form</Link>
         </nav>
       </header>
     );

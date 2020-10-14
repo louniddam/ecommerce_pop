@@ -2,7 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
-import { signin } from "../../storeRedux/actions/signinActions";
+import { signinAction } from "../../storeRedux/actions/signinActions";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
@@ -16,6 +16,7 @@ class SignIn extends React.Component {
       incorrect: false,
     };
   }
+
   onSubmitHandler = (e) => {
     e.preventDefault();
   };
@@ -37,19 +38,18 @@ class SignIn extends React.Component {
     axios
       .post("http://localhost:8000/users/sign-in", formInfo)
       .then((response) => {
-        console.log(response);
         if (response.data === "Email or Password is incorrect") {
           this.setState({
             incorrect: true,
           });
         } else if (response.data.auth) {
-          let x = jwt_decode(response.data.token);
-          console.log(x);
+          let tokenDecoded = jwt_decode(response.data.token);
+
           this.setState({
             incorrect: false,
           });
 
-          this.props.signin(x);
+          this.props.signinAction({ tokenDecoded, token: response.data.token });
         }
       })
       .catch((err) => {
@@ -94,10 +94,8 @@ class SignIn extends React.Component {
   }
 }
 
-const mapDispatchToProps = { signin };
-const mapStateToProps = (state) => {
-  return {
-    signin: state.signin,
-  };
-};
+const mapDispatchToProps = { signinAction };
+const mapStateToProps = (state) => ({
+  signinStore: state.signin,
+});
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
