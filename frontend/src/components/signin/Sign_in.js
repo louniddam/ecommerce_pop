@@ -48,7 +48,7 @@ class SignIn extends React.Component {
           this.setState({
             incorrect: false,
           });
-
+          console.log(tokenDecoded);
           this.props.signinAction({ tokenDecoded, token: response.data.token });
         }
       })
@@ -57,6 +57,7 @@ class SignIn extends React.Component {
       });
   };
   render() {
+    console.log(this.props);
     return (
       <div>
         <Form onSubmit={this.onSubmitHandler}>

@@ -61,11 +61,11 @@ class Product_form extends React.Component {
       description: this.state.description,
       category: this.state.category,
       image: this.state.image,
-      user_affiliate: this.props.signinStore.userToken.tokenDecoded.id,
+      user_affiliate: this.props.signinStore.userInfo.id,
     };
     const headers = {
       "Content-Type": "application/json",
-      authorization: "Bearer " + this.props.signinStore.userToken.token,
+      authorization: this.props.signinStore.userToken,
     };
     axios
       .post("http://localhost:8000/products", formInfo, { headers: headers })
@@ -75,13 +75,13 @@ class Product_form extends React.Component {
           this.setState({
             badProduct: true,
           });
-        } else if (this.props.signinStore.userToken.token.length) {
+        } else if (this.props.signinStore.userToken.length) {
           this.props.addProductAction(formInfo);
           this.setState({
             badProduct: false,
           });
         } else {
-          console.log("merder");
+          console.log("bugguouille");
         }
       })
       .catch((err) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import SignIn from "../signin/Sign_in";
-import Products from "../products/Products";
 import Header from "../header/Header";
+import ListProducts from "../ListProducts/ListProducts";
 
 class Home extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class Home extends React.Component {
         <p></p>
         <button>++ </button>
         <SignIn />
-        <Products />
+        <ListProducts />
       </div>
     );
   }

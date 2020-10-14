@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const verif_token = (req, res, next) => {
   try {
-    let auth = req.headers.authorization.slice(7);
+    let auth = req.headers["authorization"];
 
     jwt.verify(auth, "secret", (err, result) => {
       if (err) {
