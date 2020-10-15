@@ -60,7 +60,7 @@ router.post("/users/sign-in", (req, res) => {
         },
         "secret",
         {
-          expiresIn: "1h",
+          expiresIn: "7h",
         }
       );
 
@@ -107,7 +107,7 @@ router.post("/products", verif_token, (req, res) => {
 });
 
 router.get("/products", verif_token, (req, res) => {
-  let sql = "SELECT names, price, description, category, image FROM products";
+  let sql = "SELECT names, price, description, category, image, id FROM products";
   con.query(sql, (err, result) => {
     if (err) throw err;
 
