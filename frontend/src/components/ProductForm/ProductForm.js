@@ -70,7 +70,7 @@ class Product_form extends React.Component {
     axios
       .post("http://localhost:8000/products", formInfo, { headers: headers })
       .then((response) => {
-        if (response.data.message == "jwt must be provided") {
+        if (response.data.message === "jwt must be provided") {
           this.props.history.push("/signup");
           this.setState({
             badProduct: true,
@@ -80,6 +80,7 @@ class Product_form extends React.Component {
           this.setState({
             badProduct: false,
           });
+          console.log("k");
         } else {
           console.log("bugguouille");
         }
@@ -89,6 +90,7 @@ class Product_form extends React.Component {
       });
   };
   render() {
+    console.log(this);
     return (
       <div>
         <Header></Header>

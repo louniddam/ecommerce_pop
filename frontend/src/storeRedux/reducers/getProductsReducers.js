@@ -1,5 +1,5 @@
 const initialStates = {
-  allProducts: {},
+  allProducts: [],
 };
 const getProductsReducers = (state = initialStates, action) => {
   switch (action.type) {

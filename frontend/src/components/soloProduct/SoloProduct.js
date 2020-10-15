@@ -1,39 +1,56 @@
-import React from 'react';
-import axios from 'axios';
-import {connect} from 'react-redux';
+import React from "react";
+import axios from "axios";
+import { connect } from "react-redux";
 // import {getSoloProductAction} from '../../storeRedux/actions/getSoloProductsActions'
 
-class SoloProduct extends React.Component{
-    constructor() {
-        super();
-    }
+class SoloProduct extends React.Component {
+  constructor() {
+    super();
 
-    //Functions
-    componentDidMount(){
+    this.state = {
+      item: [],
+    };
+  }
 
-    }
-
-    getProductById(){
+  //Functions
+  componentDidMount() {
+    this.getProductById();
+  }
+  comp;
+  getProductById() {
     const headers = {
-        "Content-Type": "application/json",
-        authorization: this.props.signinStore.userToken,
-        };
-    axios.get(`http://localhost:8000/products/${this.props.listOfProducts.allProducts.data.id}`, {header: headers})
-    .then((response)=>{
-        console.log(response);
-    })
-    .catch((err)=>{
+      "Content-Type": "application/json",
+      authorization: this.props.signinStore.userToken,
+    };
+    axios
+      .get(`http://localhost:8000/products/${this.props.productId.productId}`, {
+        headers: headers,
+      })
+      .then((response) => {
+        this.setState({
+          item: response.data,
+        });
+      })
+      .catch((err) => {
         console.log(err);
-    })
-    }
+      });
+  }
 
-    render(){
-        return(
-            <div>
-            
-            </div>
-        )
-    }
+  render() {
+    console.log(this.state.item);
+    console.log(this.props.signinStore.userToken);
+    const product = this.state.item;
+    return (
+      <div>
+        {product.map((elem) => (
+          <li key={elem.id}>{elem.name}</li>
+        ))}
+      </div>
+    );
+  }
 }
-
-export default connect()(SoloProduct);
+const mapStateToProps = (state) => ({
+  productId: state.productId,
+  signinStore: state.signin,
+});
+export default connect(mapStateToProps)(SoloProduct);

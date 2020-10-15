@@ -1,21 +1,18 @@
 const jwt = require("jsonwebtoken");
 
 const verif_token = (req, res, next) => {
-  try {
-    let auth = req.headers["authorization"];
+  let auth = req.headers["authorization"];
+  console.log(auth);
 
-    jwt.verify(auth, "secret", (err, result) => {
-      if (err) {
-        res.status(200).send(err);
-      } else if (result.length <= 0) {
-        res.status(200).send(result);
-      } else {
-        next();
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  jwt.verify(auth, "secret", (err, result) => {
+    if (err) {
+      res.status(200).send(err);
+    } else if (result.length <= 0) {
+      res.status(200).send(result);
+    } else {
+      next();
+    }
+  });
 };
 
 module.exports = verif_token;

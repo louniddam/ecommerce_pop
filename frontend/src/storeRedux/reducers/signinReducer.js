@@ -1,5 +1,5 @@
 const initialStates = {
-  userToken: {},
+  userToken: null,
   userInfo: {},
   // In usertoken , there is token More Id email etc... of user
 };

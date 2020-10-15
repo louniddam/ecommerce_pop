@@ -1,34 +1,40 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-// import routing from "./routes/routes";
-import { Provider } from "react-redux";
-// import store from "./store";
+// ROUTE COMPONENT
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-// import App from "../App.js";
+import App from "./App";
 import SignUp from "./components/signup/Sign_up";
+import Product_form from "./components/ProductForm/ProductForm";
+import ListProducts from "./components/ListProducts/ListProducts";
+import SoloProduct from "./components/soloProduct/SoloProduct";
 
+// SERVICE WORKER
+import * as serviceWorker from "./serviceWorker";
+
+// STORE + PERSISTANT
+import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import allReducers from "./storeRedux/reducers/index";
-import Product_form from "./components/ProductForm/ProductForm";
 
+// REDUCERS
+import allReducers from "./storeRedux/reducers/index";
+
+// STORE + PERSISTANT
 const persistConfig = {
   key: "root",
   storage,
 };
-
 const persistedReducer = persistReducer(persistConfig, allReducers);
-
 let store = createStore(
   persistedReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 const persistor = persistStore(store);
+
+// RENDER
 
 ReactDOM.render(
   <Provider store={store}>
@@ -38,6 +44,7 @@ ReactDOM.render(
           <Route exact path="/" component={App} />
           <Route path="/signup" component={SignUp} />
           <Route path="/productform" component={Product_form} />
+          <Route path="/solo-product" component={SoloProduct} />
         </Switch>
       </Router>
     </PersistGate>

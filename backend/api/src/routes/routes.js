@@ -107,7 +107,8 @@ router.post("/products", verif_token, (req, res) => {
 });
 
 router.get("/products", verif_token, (req, res) => {
-  let sql = "SELECT names, price, description, category, image, id FROM products";
+  let sql =
+    "SELECT names, price, description, category, image, id FROM products";
   con.query(sql, (err, result) => {
     if (err) throw err;
 
@@ -118,7 +119,7 @@ router.get("/products", verif_token, (req, res) => {
 router.get("/products/:id", verif_token, (req, res) => {
   let id = req.params.id;
 
-  let sql = `SELECT products.names, products.price, products.description, products.category, products.image, users.name FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.id = ${id};`;
+  let sql = `SELECT products.id, products.names, products.price, products.description, products.category, products.image, users.name FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.id = ${id};`;
 
   con.query(sql, (err, result) => {
     if (err) throw err;
