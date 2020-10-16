@@ -58,6 +58,7 @@ class SignUp extends React.Component {
           this.setState({
             alreadyUse: false,
           });
+          this.props.history.push("/");
         }
       })
       .catch((err) => {

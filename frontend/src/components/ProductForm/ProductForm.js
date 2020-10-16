@@ -54,6 +54,15 @@ class Product_form extends React.Component {
     });
   };
 
+  handleReset = () => {
+    Array.from(document.querySelectorAll("input")).forEach(
+      input => (input.value = "")
+    );
+    this.setState({
+      itemvalues: [{}]
+    });
+  };
+
   formComplete = () => {
     let formInfo = {
       names: this.state.name,
@@ -81,6 +90,7 @@ class Product_form extends React.Component {
           this.setState({
             badProduct: false,
           });
+          this.input_name.value = "";
           console.log("k");
         } else {
           console.log("bugguouille");
@@ -100,6 +110,7 @@ class Product_form extends React.Component {
             <Form.Label>Name:</Form.Label>
             <Form.Control
               onChange={this.handleProductnameChange}
+              id="input_name"
               type="text"
               placeholder="Product Name"
             />
@@ -145,6 +156,7 @@ class Product_form extends React.Component {
 
           <Button
             onClick={() => this.formComplete()}
+            onClick={() => this.handleReset()}
             variant="primary"
             type="submit"
           >
