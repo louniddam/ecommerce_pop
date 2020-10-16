@@ -46,24 +46,24 @@ class ListProducts extends React.Component {
   };
 
   render() {
-    //Logs
-    // console.log(this.props);
-    // console.log(this.props.listOfProducts.allProducts.data);
-
-    // //Const
     const products = this.props.listOfProducts.allProducts;
-    // console.log(prod);
-    // console.log(products);
+    
     return (
       <div>
         <ul>
           {products.map((item) => (
-            <li key={item.id} onClick={() => this.clickedProduct(item.id)}>
-              <div>{item.names}</div>
-              <div>{item.price}</div>
-              <div>{item.description}</div>
-              <img src={item.image} />
-              <div>More info</div>
+            <li
+              className="li_solo_product"
+              key={item.id}
+              onClick={() => this.clickedProduct(item.id)}
+            >
+              <div className="card_product">
+                <div className="names_product">{item.names}</div>
+                <img clasName="image_product" src={item.image} />
+                <div className="price_product">{item.price}</div>
+                <div className="description_product">{item.description}</div>
+                <div>More Info</div>
+              </div>
             </li>
           ))}
         </ul>

@@ -70,8 +70,9 @@ class Product_form extends React.Component {
     axios
       .post("http://localhost:8000/products", formInfo, { headers: headers })
       .then((response) => {
-        if (response.data.message === "jwt must be provided") {
-          this.props.history.push("/signup");
+        console.log(response);
+        if (response.data.name === "JsonWebTokenError") {
+          this.props.history.push("/");
           this.setState({
             badProduct: true,
           });

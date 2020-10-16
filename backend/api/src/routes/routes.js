@@ -58,10 +58,7 @@ router.post("/users/sign-in", (req, res) => {
           email: result[0].email,
           profile_picture: result[0].profile_picture,
         },
-        "secret",
-        {
-          expiresIn: "7h",
-        }
+        "secret"
       );
 
       bcrypt.compare(password, result[0].password).then((resp) => {

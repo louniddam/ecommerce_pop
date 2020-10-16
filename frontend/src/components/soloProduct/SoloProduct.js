@@ -37,13 +37,21 @@ class SoloProduct extends React.Component {
   }
 
   render() {
-    console.log(this.state.item);
-    console.log(this.props.signinStore.userToken);
     const product = this.state.item;
     return (
       <div>
         {product.map((elem) => (
-          <li key={elem.id}>{elem.name}</li>
+          <li className="li_solo_product" key={elem.id}>
+
+          <div className="card_product">
+            <div className="name_creator">{elem.name}</div>
+            <div className="names_product">{elem.names}</div>
+            <img clasName="image_product" src={elem.image} />
+            <div className="price_product">{elem.price}</div>
+            <div className="description_product">{elem.description}</div>
+          </div>
+          </li>
+
         ))}
       </div>
     );
