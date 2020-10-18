@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../header/Header";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "../ProductForm/ProductForm.css"
-import popimg from '../ProductForm/pop_form.png'
+import "../ProductForm/ProductForm.css";
+import popimg from "../ProductForm/pop_form.png";
 import { connect } from "react-redux";
 import { addProductAction } from "../../storeRedux/actions/ProductFormActions";
 import axios from "axios";
@@ -58,14 +58,15 @@ class Product_form extends React.Component {
 
   handleReset = () => {
     Array.from(document.querySelectorAll("input")).forEach(
-      input => (input.value = "")
+      (input) => (input.value = "")
     );
     this.setState({
-      itemvalues: [{}]
+      itemvalues: [{}],
     });
   };
 
   formComplete = () => {
+    console.log("aaa");
     let formInfo = {
       names: this.state.name,
       price: this.state.price,
@@ -74,6 +75,7 @@ class Product_form extends React.Component {
       image: this.state.image,
       user_affiliate: this.props.signinStore.userInfo.id,
     };
+    console.log(formInfo);
     const headers = {
       "Content-Type": "application/json",
       authorization: this.props.signinStore.userToken,
@@ -92,7 +94,7 @@ class Product_form extends React.Component {
           this.setState({
             badProduct: false,
           });
-          this.input_name.value = "";
+
           console.log("k");
         } else {
           console.log("bugguouille");
@@ -109,22 +111,20 @@ class Product_form extends React.Component {
         <Header></Header>
 
         <div className="wrapper_form">
-
           <div className="left_side">
-            <img src={popimg}/>
+            <img src={popimg} />
           </div>
 
           <div className="right_side">
-            <Form onSubmit={this.onSubmitHandler} >
-
+            <Form onSubmit={this.onSubmitHandler}>
               <Form.Group controlId="formBasicName">
                 <span className="input-container">
-                <Form.Control
-                  onChange={this.handleProductnameChange}
-                  type="text"
-                  placeholder="Product Name"
-                  autoComplete="off"
-                />
+                  <Form.Control
+                    onChange={this.handleProductnameChange}
+                    type="text"
+                    placeholder="Product Name"
+                    autoComplete="off"
+                  />
                 </span>
               </Form.Group>
 
@@ -173,21 +173,26 @@ class Product_form extends React.Component {
               </Form.Group>
 
               <Form.Group controlId="textareaFormProduct">
-                  <Form.Label>Product description</Form.Label>
-                  <Form.Control as="textarea" rows="3" onChange={this.handleProductdescriptionChange} />
-                </Form.Group>
-                <button
-                  onClick={() => this.formComplete()}
-                  onClick={() => this.handleReset()}
-                  variant="primary"
-                  type="submit"
-                  className="add_button"
-                >
-                  Add
-                </button>
+                <Form.Label>Product description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows="3"
+                  onChange={this.handleProductdescriptionChange}
+                />
+              </Form.Group>
+              <button
+                onClick={() => console.log("aa")}
+                onClick={() => this.formComplete()}
+                // onClick={() => this.handleReset()}
+                variant="primary"
+                type="submit"
+                className="add_button"
+              >
+                Add
+              </button>
             </Form>
-          </div>      
-      </div>
+          </div>
+        </div>
       </div>
     );
   }
