@@ -92,7 +92,7 @@ class SignUp extends React.Component {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPasswordSignpassword">
+          <Form.Group controlId="formBasicPasswordSignup">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={this.handlePasswordChange}

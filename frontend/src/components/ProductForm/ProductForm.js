@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../header/Header";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "../ProductForm/ProductForm.css"
+import popimg from '../ProductForm/pop_form.png'
 import { connect } from "react-redux";
 import { addProductAction } from "../../storeRedux/actions/ProductFormActions";
 import axios from "axios";
@@ -105,64 +107,87 @@ class Product_form extends React.Component {
     return (
       <div>
         <Header></Header>
-        <Form onSubmit={this.onSubmitHandler}>
-          <Form.Group controlId="formBasicName">
-            <Form.Label>Name:</Form.Label>
-            <Form.Control
-              onChange={this.handleProductnameChange}
-              id="input_name"
-              type="text"
-              placeholder="Product Name"
-            />
-          </Form.Group>
 
-          <Form.Group controlId="formBasicPrice">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              onChange={this.handleProductpriceChange}
-              type="number"
-              min="1"
-              step="0.1"
-              placeholder="Enter price"
-            />
-          </Form.Group>
+        <div className="wrapper_form">
 
-          <Form.Group controlId="formBasicDescription">
-            <Form.Label>Short description</Form.Label>
-            <Form.Control
-              onChange={this.handleProductdescriptionChange}
-              type="text"
-              placeholder="description"
-            />
-          </Form.Group>
+          <div className="left_side">
+            <img src={popimg}/>
+          </div>
 
-          <Form.Group controlId="formBasicCategory">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Category"
-              onChange={this.handleProductcategoryChange}
-            />
-          </Form.Group>
+          <div className="right_side">
+            <Form onSubmit={this.onSubmitHandler} >
 
-          <Form.Group controlId="formBasicImage">
-            <Form.Label>Product Image</Form.Label>
-            <Form.Control
-              onChange={this.handleProductimageChange}
-              type="text"
-              placeholder="Product image"
-            />
-          </Form.Group>
+              <Form.Group controlId="formBasicName">
+                <span className="input-container">
+                <Form.Control
+                  onChange={this.handleProductnameChange}
+                  type="text"
+                  placeholder="Product Name"
+                  autoComplete="off"
+                />
+                </span>
+              </Form.Group>
 
-          <Button
-            onClick={() => this.formComplete()}
-            onClick={() => this.handleReset()}
-            variant="primary"
-            type="submit"
-          >
-            Add Product
-          </Button>
-        </Form>
+              <Form.Group controlId="formBasicPrice">
+                <span className="input-container">
+                  <Form.Control
+                    onChange={this.handleProductpriceChange}
+                    type="number"
+                    min="1"
+                    step="0.1"
+                    placeholder="Enter price"
+                    autoComplete="off"
+                  />
+                </span>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicCategory">
+                <span className="input-container">
+                  <Form.Control
+                    type="text"
+                    placeholder="Category"
+                    autoComplete="off"
+                    onChange={this.handleProductcategoryChange}
+                  />
+                </span>
+              </Form.Group>
+
+              {/* <Form.Group controlId="formBasicDescription">
+                <Form.Label>Short description</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="description"
+                  onChange={this.handleProductdescriptionChange}
+                />
+              </Form.Group> */}
+
+              <Form.Group controlId="formBasicImage">
+                <span className="input-container">
+                  <Form.Control
+                    onChange={this.handleProductimageChange}
+                    type="text"
+                    autoComplete="off"
+                    placeholder="Product image"
+                  />
+                </span>
+              </Form.Group>
+
+              <Form.Group controlId="textareaFormProduct">
+                  <Form.Label>Product description</Form.Label>
+                  <Form.Control as="textarea" rows="3" onChange={this.handleProductdescriptionChange} />
+                </Form.Group>
+                <button
+                  onClick={() => this.formComplete()}
+                  onClick={() => this.handleReset()}
+                  variant="primary"
+                  type="submit"
+                  className="add_button"
+                >
+                  Add
+                </button>
+            </Form>
+          </div>      
+      </div>
       </div>
     );
   }

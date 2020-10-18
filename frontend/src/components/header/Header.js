@@ -15,7 +15,7 @@ class Header extends React.Component {
     console.log(this.props.signinStore.userToken);
     if(this.props.signinStore.userToken == null){
         x = (<header className="header">
-          <nav className="navbar">
+          <nav className="navba">
           <Link to="/">Home</Link>
           <Link to="/signup">Signup</Link>
           </nav>
