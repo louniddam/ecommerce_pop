@@ -1,17 +1,14 @@
 import React from "react";
-import Header from "../header/Header";
+import axios from "axios";
+import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "../ProductForm/ProductForm.css";
+import Header from "../header/Header";
+import { withRouter } from "react-router";
 import popimg from "../ProductForm/pop_form.png";
-import { connect } from "react-redux";
-import { addProductAction } from "../../storeRedux/actions/ProductFormActions";
-import axios from "axios";
-
-class Product_form extends React.Component {
+class EditProduct extends React.Component {
   constructor() {
     super();
-
     this.state = {
       name: "",
       price: "",
@@ -19,9 +16,33 @@ class Product_form extends React.Component {
       category: "",
       image: "",
       badProduct: false,
+      item: [],
+      falseProduct: false,
     };
   }
-
+  componentDidMount() {
+    this.getProductById();
+    console.log("hello");
+  }
+  getProductById() {
+    const headers = {
+      "Content-Type": "application/json",
+      authorization: this.props.signinStore.userToken,
+    };
+    axios
+      .get(`http://localhost:8000/products/${this.props.productId.productId}`, {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          item: response.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   onSubmitHandler = (e) => {
     e.preventDefault();
   };
@@ -73,31 +94,17 @@ class Product_form extends React.Component {
       description: this.state.description,
       category: this.state.category,
       image: this.state.image,
-      user_affiliate: this.props.signinStore.userInfo.id,
-    };
-    console.log(formInfo);
-    const headers = {
-      "Content-Type": "application/json",
-      authorization: this.props.signinStore.userToken,
+      id: this.props.productId.productId,
     };
     axios
-      .post("http://localhost:8000/products", formInfo, { headers: headers })
+      .put("http://localhost:8000/product/edit", formInfo)
       .then((response) => {
-        console.log(response);
-        if (response.data.name === "JsonWebTokenError") {
-          this.props.history.push("/");
+        if (response.data === "PRODUCT UPDATED")
+          this.props.history.push("/profiluser");
+        else {
           this.setState({
-            badProduct: true,
+            falseProduct: true,
           });
-        } else if (this.props.signinStore.userToken.length) {
-          this.props.addProductAction(formInfo);
-          this.setState({
-            badProduct: false,
-          });
-
-          console.log("k");
-        } else {
-          console.log("bugguouille");
         }
       })
       .catch((err) => {
@@ -105,14 +112,20 @@ class Product_form extends React.Component {
       });
   };
   render() {
-    console.log(this);
+    if (this.state.item[0] !== undefined) console.log(this.state.item[0].id);
     return (
       <div>
         <Header></Header>
-
         <div className="wrapper_form">
           <div className="left_side">
-            <img src={popimg} />
+            <img
+              src={
+                this.state.item[0] !== undefined
+                  ? this.state.item[0].image
+                  : "hello"
+              }
+              //   alt="e"
+            />
           </div>
 
           <div className="right_side">
@@ -153,13 +166,13 @@ class Product_form extends React.Component {
               </Form.Group>
 
               {/* <Form.Group controlId="formBasicDescription">
-                <Form.Label>Short description</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="description"
-                  onChange={this.handleProductdescriptionChange}
-                />
-              </Form.Group> */}
+            <Form.Label>Short description</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="description"
+              onChange={this.handleProductdescriptionChange}
+            />
+          </Form.Group> */}
 
               <Form.Group controlId="formBasicImage">
                 <span className="input-container">
@@ -196,8 +209,14 @@ class Product_form extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   signinStore: state.signin,
+  productId: state.productId,
 });
-const mapDispatchToProps = { addProductAction };
-export default connect(mapStateToProps, mapDispatchToProps)(Product_form);
+const mapDispatchToProps = {};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(EditProduct));

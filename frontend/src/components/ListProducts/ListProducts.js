@@ -3,7 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { getProductsAction } from "../../storeRedux/actions/getProductsActions";
 import { getIdProductAction } from "../../storeRedux/actions/getProductIdActions";
-
+import { addToTheCart } from "../../storeRedux/actions/addToCartActions";
 import { withRouter } from "react-router";
 class ListProducts extends React.Component {
   constructor() {
@@ -44,25 +44,29 @@ class ListProducts extends React.Component {
     this.props.getIdProductAction(itemId);
     this.props.history.push("/solo-product");
   };
-
+  addToCart = (item) => {
+    console.log(item);
+    this.props.addToTheCart(item);
+  };
   render() {
     const products = this.props.listOfProducts.allProducts;
-    
+
     return (
       <div>
         <ul>
           {products.map((item) => (
-            <li
-              className="li_solo_product"
-              key={item.id}
-              onClick={() => this.clickedProduct(item.id)}
-            >
+            <li className="li_solo_product" key={item.id}>
               <div className="card_product">
                 <div className="names_product">{item.names}</div>
-                <img clasName="image_product" src={item.image} />
+                <img className="image_product" src={item.image} />
                 <div className="price_product">{item.price}</div>
                 <div className="description_product">{item.description}</div>
-                <div>More Info</div>
+                <button onClick={() => this.addToCart(item)}>
+                  ADD TO CART
+                </button>
+                <button onClick={() => this.clickedProduct(item.id)}>
+                  More Info
+                </button>
               </div>
             </li>
           ))}
@@ -79,6 +83,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getProductsAction,
   getIdProductAction,
+  addToTheCart,
 };
 
 export default connect(

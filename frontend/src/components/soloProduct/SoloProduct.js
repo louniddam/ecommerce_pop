@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 // import {getSoloProductAction} from '../../storeRedux/actions/getSoloProductsActions'
-
+import { addToTheCart } from "../../storeRedux/actions/addToCartActions";
 class SoloProduct extends React.Component {
   constructor() {
     super();
@@ -16,7 +16,7 @@ class SoloProduct extends React.Component {
   componentDidMount() {
     this.getProductById();
   }
-  comp;
+
   getProductById() {
     const headers = {
       "Content-Type": "application/json",
@@ -36,22 +36,27 @@ class SoloProduct extends React.Component {
       });
   }
 
+  addToCart = (elem) => {
+    console.log(elem);
+    this.props.addToTheCart(elem);
+  };
+
   render() {
     const product = this.state.item;
+
     return (
       <div>
         {product.map((elem) => (
           <li className="li_solo_product" key={elem.id}>
-
-          <div className="card_product">
-            <div className="name_creator">{elem.name}</div>
-            <div className="names_product">{elem.names}</div>
-            <img clasName="image_product" src={elem.image} />
-            <div className="price_product">{elem.price}</div>
-            <div className="description_product">{elem.description}</div>
-          </div>
+            <div className="card_product">
+              <div className="name_creator">{elem.name}</div>
+              <div className="names_product">{elem.names}</div>
+              <img className="image_product" src={elem.image} />
+              <div className="price_product">{elem.price}</div>
+              <div className="description_product">{elem.description}</div>
+              <button onClick={() => this.addToCart(elem)}>ADD TO CART</button>
+            </div>
           </li>
-
         ))}
       </div>
     );
@@ -61,4 +66,5 @@ const mapStateToProps = (state) => ({
   productId: state.productId,
   signinStore: state.signin,
 });
-export default connect(mapStateToProps)(SoloProduct);
+const mapDispatchToProps = { addToTheCart };
+export default connect(mapStateToProps, mapDispatchToProps)(SoloProduct);

@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import App from "./App";
 import SignUp from "./components/signup/Sign_up";
 import Product_form from "./components/ProductForm/ProductForm";
-import ListProducts from "./components/ListProducts/ListProducts";
+// import ListProducts from "./components/ListProducts/ListProducts";
 import SoloProduct from "./components/soloProduct/SoloProduct";
-
+import ProfilUser from "./components/ProfilUser/ProfilUser";
+import EditProduct from "./components/EditProduct/EditProduct";
+import Cart from "./components/Cart/Cart";
 // SERVICE WORKER
 import * as serviceWorker from "./serviceWorker";
 
@@ -45,6 +47,9 @@ ReactDOM.render(
           <Route path="/signup" component={SignUp} />
           <Route path="/productform" component={Product_form} />
           <Route path="/solo-product" component={SoloProduct} />
+          <Route path="/profiluser" component={ProfilUser} />
+          <Route path="/edit-product" component={EditProduct} />
+          <Route path="/cart" component={Cart} />
         </Switch>
       </Router>
     </PersistGate>

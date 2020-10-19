@@ -5,6 +5,7 @@ const intialState = {
 const getProductIdReducers = (state = intialState, action) => {
   switch (action.type) {
     case "GET_PRODUCT_ID":
+      console.log(state);
       return { ...state, productId: action.payload };
 
     default:
