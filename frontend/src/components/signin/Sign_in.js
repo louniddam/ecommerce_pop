@@ -50,7 +50,7 @@ class SignIn extends React.Component {
           });
           console.log(tokenDecoded);
           this.props.signinAction({ tokenDecoded, token: response.data.token });
-          this.props.history.push("/");
+          // this.props.history.push("/");
         }
       })
       .catch((err) => {
