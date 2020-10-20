@@ -32,7 +32,6 @@ class EditProduct extends React.Component {
         headers: headers,
       })
       .then((response) => {
-        console.log(response.data);
         this.setState({
           item: response.data,
         });

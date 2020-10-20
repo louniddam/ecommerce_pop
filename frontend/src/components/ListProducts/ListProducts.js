@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getProductsAction } from "../../storeRedux/actions/getProductsActions";
 import { getIdProductAction } from "../../storeRedux/actions/getProductIdActions";
 import { addToTheCart } from "../../storeRedux/actions/addToCartActions";
+import {removeToTheCart} from "../../storeRedux/actions/removeToCartActions"
 import { withRouter } from "react-router";
 class ListProducts extends React.Component {
   constructor() {
@@ -49,6 +50,9 @@ class ListProducts extends React.Component {
     console.log(item);
     this.props.addToTheCart(item);
   };
+  removeToCart = (item) => {
+    this.props.removeToTheCart(item)
+  }
   render() {
     const products = this.props.listOfProducts.allProducts;
 
@@ -64,6 +68,9 @@ class ListProducts extends React.Component {
                 <div className="description_product">{item.description}</div>
                 <button onClick={() => this.addToCart(item)}>
                   ADD TO CART
+                </button>
+                <button onClick={() => this.removeToCart(item)}>
+                  REMOVE 1 TO CART
                 </button>
                 <button onClick={() => this.clickedProduct(item.id)}>
                   More Info
@@ -85,6 +92,7 @@ const mapDispatchToProps = {
   getProductsAction,
   getIdProductAction,
   addToTheCart,
+  removeToTheCart
 };
 
 export default connect(
