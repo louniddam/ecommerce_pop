@@ -15,7 +15,8 @@ const signinReducer = (state = initialStates, action) => {
       case "DISCONNECTED":
         return {
           ...state,
-          userToken: null
+          userToken: null,
+          userInfo:{}
         };
 
     default:

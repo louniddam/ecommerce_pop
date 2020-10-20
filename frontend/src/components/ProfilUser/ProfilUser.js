@@ -22,6 +22,7 @@ class ProfilUser extends React.Component {
     };
   }
   componentDidMount() {
+    if(this.props.signinStore.userToken)
     this.getAllProductsUser();
   }
 
@@ -67,6 +68,8 @@ class ProfilUser extends React.Component {
           this.setState({
             failEdit: "true",
           });
+          console.log('lol');
+          this.props.history.push('/')
         }
       })
       .catch((err) => {

@@ -19,7 +19,7 @@ const addProductToCartReducer = (state = intialState, action) => {
        let addedProductID = state.product.find(product => product.p.id === action.payload.id)
         let addedProductIndex = state.product.findIndex(product => product.p.id === action.payload.id)
       // });
-      console.log(addedProductIndex);
+      // console.log(addedProductIndex);
       if(!addedProductID){
         return { ...state, 
           totalPrice: state.totalPrice + action.payload.price,
@@ -43,6 +43,7 @@ const addProductToCartReducer = (state = intialState, action) => {
         ],
       }
       }
+      case "REMOVE_PRODUCT_TO_CART":
    
       
 
