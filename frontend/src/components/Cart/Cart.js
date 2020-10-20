@@ -11,10 +11,23 @@ class Cart extends React.Component {
   render() {
     console.log(this.props.cart);
     console.log(this.props);
+    const products = this.props.cart.product
+
     return (
       <div>
         <Header></Header>
-        <p>hello</p>
+        <ul>
+          {products.map((item) => (
+            <li className="li_solo_product" key={item.id}>
+              <div className="card_product">
+                <div className="names_product">{item.names}</div>
+                <img className="image_product" src={item.image} />
+                <div className="price_product">{item.price}</div>
+                <div className="description_product">{item.description}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
