@@ -2,10 +2,8 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Header from "../header/Header";
 import { withRouter } from "react-router";
-import popimg from "../ProductForm/pop_form.png";
 class EditProduct extends React.Component {
   constructor() {
     super();
@@ -130,7 +128,7 @@ class EditProduct extends React.Component {
 
           <div className="right_side">
             <Form onSubmit={this.onSubmitHandler}>
-              <Form.Group controlId="formBasicName">
+              <Form.Group controlId="formBasicNameEditProduct">
                 <span className="input-container">
                   <Form.Control
                     onChange={this.handleProductnameChange}
@@ -141,7 +139,7 @@ class EditProduct extends React.Component {
                 </span>
               </Form.Group>
 
-              <Form.Group controlId="formBasicPrice">
+              <Form.Group controlId="formBasicPriceEditProduct">
                 <span className="input-container">
                   <Form.Control
                     onChange={this.handleProductpriceChange}
@@ -154,7 +152,7 @@ class EditProduct extends React.Component {
                 </span>
               </Form.Group>
 
-              <Form.Group controlId="formBasicCategory">
+              <Form.Group controlId="formBasicCategoryEditProduct">
                 <span className="input-container">
                   <Form.Control
                     type="text"
@@ -174,7 +172,7 @@ class EditProduct extends React.Component {
             />
           </Form.Group> */}
 
-              <Form.Group controlId="formBasicImage">
+              <Form.Group controlId="formBasicImageEditProduct">
                 <span className="input-container">
                   <Form.Control
                     onChange={this.handleProductimageChange}
@@ -185,7 +183,7 @@ class EditProduct extends React.Component {
                 </span>
               </Form.Group>
 
-              <Form.Group controlId="textareaFormProduct">
+              <Form.Group controlId="textareaFormEditProduct">
                 <Form.Label>Product description</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -200,7 +198,7 @@ class EditProduct extends React.Component {
                 type="submit"
                 className="add_button"
               >
-                Add
+                Edit
               </button>
             </Form>
           </div>

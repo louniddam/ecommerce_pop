@@ -2,9 +2,13 @@
 .wrapper_form {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
-  border: 1px solid black;
-  height: 63vh;
+  margin-top: 50px;
+  height: 73vh;
+}
+
+.form{
+  height: auto;
+  width: 100%;
 }
 
 .left_side {
@@ -17,7 +21,8 @@
 .right_side {
   border-radius: 10px;
   border: 1px solid black;
-  width: 35%;
+  width: 40%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,8 +41,8 @@
 /* IMG */
 .left_side img {
   margin-top: 25%;
-  height: 300px;
-  width: 300px;
+  height: auto;
+  width: 100%;
   align-self: center;
 }
 
@@ -51,12 +56,13 @@
   border: 0;
   border-bottom: 1px solid #555;
   background: transparent;
-  width: 100%;
+  width: 50%;
   padding: 8px 0 5px 0;
   font-size: 16px;
-
+  margin-left: 25%;
   text-align: center;
 }
+
 .input-container input:focus {
   border: none;
   outline: none !important;
@@ -85,7 +91,7 @@ label:focus,
 /* test button*/
 .add_button {
   height: 10%;
-  width: 80%;
+  width: 20%;
   color: black;
   background-color: white;
   text-decoration: none;
@@ -93,7 +99,7 @@ label:focus,
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  margin-left: 20px;
+  margin-left: 40%;
 }
 
 .add_button:hover {
@@ -118,6 +124,17 @@ label:focus,
 
 .add_button:hover:before {
   left: 100%;
+}
+
+
+#textareaFormProduct{
+  width: 50%;
+  margin-left: 25%;
+}
+
+.label_area{
+  margin-left: 25%;
+  font-size: 1em;
 }
 
 /* media query 800px */

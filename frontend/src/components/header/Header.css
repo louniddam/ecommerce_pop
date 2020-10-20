@@ -1,6 +1,6 @@
 .main_container header{
-    height: 10vh;
-    background-color: rgba(59, 49, 151, 0.733);
+    height: 12vh;
+    background-color: blanchedalmond;
 }
 
 .header{
@@ -85,4 +85,18 @@ label:focus,
   outline: 0px !important;
   -webkit-appearance: none;
   box-shadow: none !important;
+}
+
+.img1 {
+  position: absolute;
+  margin-left: -20%;
+  height: auto;
+  width: 5%;
+}
+
+.img2 {
+  position: absolute;
+  margin-left: 20%;
+  height: auto;
+  width: 5%;
 }

@@ -7,7 +7,10 @@ class Cart extends React.Component {
   constructor() {
     super();
   }
+
   render() {
+    console.log(this.props.cart);
+    console.log(this.props);
     return (
       <div>
         <Header></Header>

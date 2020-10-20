@@ -114,7 +114,7 @@ class ProfilUser extends React.Component {
         <Header></Header>
         <h1>EDIT YOUR PROFILE</h1>
         <Form onSubmit={this.onSubmitHandler}>
-          <Form.Group>
+          <Form.Group controlId="formBasicNameEditProfil">
             <Form.Label>Name:</Form.Label>
             <Form.Control
               onChange={this.handleUsernameChange}
@@ -123,7 +123,7 @@ class ProfilUser extends React.Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicEmailSignup">
+          <Form.Group controlId="formBasicEmailEditProfil">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={this.handleEmailChange}
@@ -135,7 +135,7 @@ class ProfilUser extends React.Component {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPasswordSignup">
+          <Form.Group controlId="formBasicPasswordEditProfil">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={this.handlePasswordChange}
@@ -144,7 +144,7 @@ class ProfilUser extends React.Component {
             />
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group controlId="formBasicImageEditProfil">
             <Form.Label>Profile Picture:</Form.Label>
             <Form.Control
               onChange={this.handleProfilePictureChange}
@@ -163,7 +163,7 @@ class ProfilUser extends React.Component {
             variant="primary"
             type="submit"
           >
-            Sign up
+            Edit
           </Button>
         </Form>
 
@@ -173,7 +173,7 @@ class ProfilUser extends React.Component {
             <li className="li_solo_product" key={item.id}>
               <div className="card_product">
                 <div className="names_product">{item.names}</div>
-                <img className="image_product" src={item.image} />
+                <img className="image_product" src={item.image} alt="product img"/>
                 <div className="price_product">{item.price}</div>
                 <div className="description_product">{item.description}</div>
                 <button

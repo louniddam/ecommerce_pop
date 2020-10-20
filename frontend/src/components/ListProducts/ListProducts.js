@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import '../ListProducts/ListProducts.css'
 import { connect } from "react-redux";
 import { getProductsAction } from "../../storeRedux/actions/getProductsActions";
 import { getIdProductAction } from "../../storeRedux/actions/getProductIdActions";

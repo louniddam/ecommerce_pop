@@ -4,6 +4,7 @@ import "../header/Header.css";
 import { connect } from "react-redux";
 import { signoutAction } from "../../storeRedux/actions/signoutActions";
 import { withRouter } from "react-router";
+import img1 from "../header/pop1.png"
 class Header extends React.Component {
   imageOnclick = () => {
     this.props.history.push("/profiluser");
@@ -23,6 +24,9 @@ class Header extends React.Component {
             <Link className="nav_link" to="/">
               Home
             </Link>
+            <img src={img1} className="img1" />
+            <img src={img1} className="img2" />
+            <h1>Pop ta vie</h1>
             <Link className="nav_link" to="/signup">
               Signup
             </Link>
@@ -36,7 +40,6 @@ class Header extends React.Component {
             <Link className="nav_link" to="/">
               Home
             </Link>
-
             <Link className="nav_link" to="/productform">
               Product Form
             </Link>

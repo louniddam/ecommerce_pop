@@ -1,0 +1,14 @@
+.li_solo_product{
+    list-style: none;
+}
+
+.image_product {
+    height: auto;
+    width: 100%;
+    max-width: 200px;
+
+}
+
+.price_product{
+    font-style: italic;
+}

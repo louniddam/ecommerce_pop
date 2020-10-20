@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../header/Header";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import "../ProductForm/ProductForm.css";
 import popimg from "../ProductForm/pop_form.png";
 import { connect } from "react-redux";
 import { addProductAction } from "../../storeRedux/actions/ProductFormActions";
+import { withRouter } from "react-router";
 import axios from "axios";
 
 class Product_form extends React.Component {
@@ -94,7 +94,7 @@ class Product_form extends React.Component {
           this.setState({
             badProduct: false,
           });
-
+          this.props.history.push('/')
           console.log("k");
         } else {
           console.log("bugguouille");
@@ -112,11 +112,11 @@ class Product_form extends React.Component {
 
         <div className="wrapper_form">
           <div className="left_side">
-            <img src={popimg} />
+            <img src={popimg} alt="pop_img" />
           </div>
 
           <div className="right_side">
-            <Form onSubmit={this.onSubmitHandler}>
+            <Form onSubmit={this.onSubmitHandler} className="form">
               <Form.Group controlId="formBasicName">
                 <span className="input-container">
                   <Form.Control
@@ -136,6 +136,7 @@ class Product_form extends React.Component {
                     min="1"
                     step="0.1"
                     placeholder="Enter price"
+                    defaultValue="€"
                     autoComplete="off"
                   />
                 </span>
@@ -173,7 +174,7 @@ class Product_form extends React.Component {
               </Form.Group>
 
               <Form.Group controlId="textareaFormProduct">
-                <Form.Label>Product description</Form.Label>
+                <Form.Label className="label_area">Product description</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows="3"
@@ -200,4 +201,4 @@ const mapStateToProps = (state) => ({
   signinStore: state.signin,
 });
 const mapDispatchToProps = { addProductAction };
-export default connect(mapStateToProps, mapDispatchToProps)(Product_form);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Product_form));

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 // import {getSoloProductAction} from '../../storeRedux/actions/getSoloProductsActions'
 import { addToTheCart } from "../../storeRedux/actions/addToCartActions";
 class SoloProduct extends React.Component {
@@ -39,6 +40,7 @@ class SoloProduct extends React.Component {
   addToCart = (elem) => {
     console.log(elem);
     this.props.addToTheCart(elem);
+    this.props.history.push('/');
   };
 
   render() {
@@ -51,7 +53,7 @@ class SoloProduct extends React.Component {
             <div className="card_product">
               <div className="name_creator">{elem.name}</div>
               <div className="names_product">{elem.names}</div>
-              <img className="image_product" src={elem.image} />
+              <img className="image_product" src={elem.image} alt="product_img" />
               <div className="price_product">{elem.price}</div>
               <div className="description_product">{elem.description}</div>
               <button onClick={() => this.addToCart(elem)}>ADD TO CART</button>
@@ -67,4 +69,4 @@ const mapStateToProps = (state) => ({
   signinStore: state.signin,
 });
 const mapDispatchToProps = { addToTheCart };
-export default connect(mapStateToProps, mapDispatchToProps)(SoloProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SoloProduct));
