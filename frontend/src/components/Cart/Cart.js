@@ -21,10 +21,11 @@ class Cart extends React.Component {
           {products.map((item) => (
             <li className="li_solo_product" key={item.p.id}>
               <div className="card_product">
-                <div className="names_product">{item.names}</div>
-                <img className="image_product" src={item.image} />
-                <div className="price_product">{item.price}</div>
-                <div className="description_product">{item.description}</div>
+                <div className="names_product">{item.p.names}</div>
+                <img className="image_product" src={item.p.image} />
+                <div className="price_product">{item.p.price}</div>
+                <div className="price_product">{item.p.new_price}</div>
+                <div className="description_product">{item.p.description}</div>
               </div>
             </li>
           ))}

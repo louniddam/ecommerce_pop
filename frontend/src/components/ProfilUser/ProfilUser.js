@@ -178,6 +178,7 @@ class ProfilUser extends React.Component {
                 <div className="names_product">{item.names}</div>
                 <img className="image_product" src={item.image} alt="product img"/>
                 <div className="price_product">{item.price}</div>
+                <div className="newprice_product">{item.new_price}</div>
                 <div className="description_product">{item.description}</div>
                 <button
                   className="btn"

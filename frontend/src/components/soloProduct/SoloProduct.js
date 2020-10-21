@@ -55,6 +55,7 @@ class SoloProduct extends React.Component {
               <div className="names_product">{elem.names}</div>
               <img className="image_product" src={elem.image} alt="product_img" />
               <div className="price_product">{elem.price}</div>
+              <div className="newprice_product">{elem.new_price}</div>
               <div className="description_product">{elem.description}</div>
               <button onClick={() => this.addToCart(elem)}>ADD TO CART</button>
             </div>

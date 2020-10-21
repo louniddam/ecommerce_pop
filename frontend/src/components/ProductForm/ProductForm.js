@@ -144,7 +144,6 @@ class Product_form extends React.Component {
                     min="1"
                     step="0.1"
                     placeholder="Enter price"
-                    defaultValue="€"
                     autoComplete="off"
                   />
                 </span>
