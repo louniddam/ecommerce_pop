@@ -33,7 +33,7 @@ const addProductToCartReducer = (state = intialState, action) => {
       else if(addedProductID){
         return {...state,
         totalPrice: state.totalPrice + action.payload.price,
-        product: [ ...state.product.splice(0,addedProductIndex),{
+        product: [ ...state.product.slice(0,addedProductIndex),{
           p : action.payload,
           qty : state.product[addedProductIndex].qty+1
           },
@@ -57,7 +57,7 @@ const addProductToCartReducer = (state = intialState, action) => {
            
         //   };
         // }
-         if(addedProductID){
+         if(addedProductID && state.product[addedProductIndex].qty > 0){
           return {...state,
           totalPrice: state.totalPrice - action.payload.price,
           product: [ ...state.product.slice(0,addedProductIndex),{
