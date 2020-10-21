@@ -24,12 +24,14 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 // REDUCERS
 import allReducers from "./storeRedux/reducers/index";
 
-// STORE + PERSISTANT
+// STORE + PERSISTANT , PERSIST CONFIG TAKE KEY "ROOT" TO ACCESS FROM THE HIGHEST PART OF THE STORE
 const persistConfig = {
   key: "root",
   storage,
 };
+// PERSISTEDREDUCER TAKE 2 PARAMS ONE FOR THE PERSISTCONFIG AND ALL OUR REDUCERS
 const persistedReducer = persistReducer(persistConfig, allReducers);
+// CREATE STORE WITH THE PERSITATED + ACCESS THE REDUX DEVTOOLS
 let store = createStore(
   persistedReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

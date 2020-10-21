@@ -9,7 +9,6 @@ const verif_token = require("../middleware/token");
 
 //USERS ROUTES
 
-
 // EDIT A USER PROFILE
 router.put("/users/edit", (req, res) => {
   let name = req.body.name;
@@ -171,7 +170,6 @@ router.get("/products/user/:id", (req, res) => {
   });
 });
 
-
 // EDIT A PRODUCT
 router.put("/product/edit", (req, res) => {
   let names = req.body.names;
@@ -199,7 +197,7 @@ router.put("/product/edit", (req, res) => {
   });
 });
 
-//DELETE PRODUCT
+//DELETE PRODUCT DONT TAKE BODY WITH AXIOS
 router.delete("/product/delete/:id", (req, res) => {
   let id = req.params.id;
   console.log(id);

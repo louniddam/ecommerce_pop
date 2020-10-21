@@ -12,12 +12,13 @@ const signinReducer = (state = initialStates, action) => {
         userToken: action.payload.token,
         userInfo: action.payload.tokenDecoded,
       };
-      case "DISCONNECTED":
-        return {
-          ...state,
-          userToken: null,
-          userInfo:{}
-        };
+    case "DISCONNECTED":
+      // WE CLEAR USE TOKEN AND INFO USER
+      return {
+        ...state,
+        userToken: null,
+        userInfo: {},
+      };
 
     default:
       return state;

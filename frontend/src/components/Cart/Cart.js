@@ -9,14 +9,12 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log(this.props.cart);
-    console.log(this.props);
-    const products = this.props.cart.product;
-    console.log(products);
-
+    const products = this.props.cartR.product;
     return (
       <div>
         <Header></Header>
+        <div>{this.props.cartR.totalPrice}</div>
+
         <ul>
           {products.map((item) => (
             <li className="li_solo_product" key={item.p.id}>
@@ -35,7 +33,8 @@ class Cart extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  cart: state.cart,
+  cartR: state.cart,
+  listProductR: state.listOfProducts,
 });
 const mapDispatchToProps = { addToTheCart };
 

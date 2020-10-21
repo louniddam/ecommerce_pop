@@ -4,7 +4,8 @@ import "../header/Header.css";
 import { connect } from "react-redux";
 import { signoutAction } from "../../storeRedux/actions/signoutActions";
 import { withRouter } from "react-router";
-import img1 from "../header/pop1.png"
+import img1 from "../header/pop1.png";
+
 class Header extends React.Component {
   imageOnclick = () => {
     this.props.history.push("/profiluser");
@@ -15,11 +16,10 @@ class Header extends React.Component {
   };
 
   render() {
-    console.log(this.props);
-    let x;
-    console.log(this.props.signinStore.userToken);
+    let renderedHeader;
+
     if (this.props.signinStore.userToken == null) {
-      x = (
+      renderedHeader = (
         <header className="header">
           <nav className="nav">
             <Link className="nav_link" to="/">
@@ -35,7 +35,7 @@ class Header extends React.Component {
         </header>
       );
     } else if (this.props.signinStore.userToken) {
-      x = (
+      renderedHeader = (
         <header className="header">
           <nav className="nav">
             <Link className="nav_link" to="/">
@@ -61,7 +61,7 @@ class Header extends React.Component {
         </header>
       );
     }
-    return <div className="main_container">{x}</div>;
+    return <div className="main_container">{renderedHeader}</div>;
   }
 }
 
