@@ -9,31 +9,7 @@ const verif_token = require("../middleware/token");
 
 //USERS ROUTES
 
-// EDIT A PRODUCT
-router.put("/product/edit", (req, res) => {
-  let names = req.body.names;
-  let price = req.body.price;
-  let category = req.body.category;
-  let description = req.body.description;
-  let image = req.body.image;
-  let id = req.body.id;
-  let check = `SELECT id FROM products WHERE id = '${id}';`;
-  con.query(check, (err, result) => {
-    if (err) throw err;
 
-    if (!result.length) {
-      res.status(200).send("This product doesn't exist");
-    } else {
-      let verif = `UPDATE products SET names = '${names}',price = '${price}', category = '${category}', image = '${image}',description = '${description}' WHERE products.id = '${id}'`;
-      con.query(verif, (err, result) => {
-        if (err) throw err;
-        else {
-          res.status(200).send("PRODUCT UPDATED");
-        }
-      });
-    }
-  });
-});
 // EDIT A USER PROFILE
 router.put("/users/edit", (req, res) => {
   let name = req.body.name;
@@ -147,12 +123,13 @@ router.get("/users/:id", verif_token, (req, res) => {
 router.post("/products", verif_token, (req, res) => {
   let names = req.body.names;
   let price = req.body.price;
+  let newPrice = req.body.newPrice;
   let category = req.body.category;
   let description = req.body.description;
   let image = req.body.image;
   let user_affiliate = req.body.user_affiliate;
 
-  let sql = `INSERT INTO products (names, price, category, description, image, user_affiliate) VALUES('${names}','${price}','${category}','${description}','${image}','${user_affiliate}');`;
+  let sql = `INSERT INTO products (names, price, new_price,category, description, image, user_affiliate) VALUES('${names}','${price}','${newPrice}', '${category}','${description}','${image}','${user_affiliate}');`;
 
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -163,7 +140,7 @@ router.post("/products", verif_token, (req, res) => {
 //GET ALL PRODUCTS
 router.get("/products", verif_token, (req, res) => {
   let sql =
-    "SELECT names, price, description, category, image, id FROM products";
+    "SELECT names, price, new_price, description, category, image, id FROM products";
   con.query(sql, (err, result) => {
     if (err) throw err;
 
@@ -174,7 +151,7 @@ router.get("/products", verif_token, (req, res) => {
 router.get("/products/:id", verif_token, (req, res) => {
   let id = req.params.id;
 
-  let sql = `SELECT products.id, products.names, products.price, products.description, products.category, products.image, users.name FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.id = ${id};`;
+  let sql = `SELECT products.id, products.names, products.price, products.new_price, products.description, products.category, products.image, users.name FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.id = ${id};`;
 
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -186,11 +163,39 @@ router.get("/products/:id", verif_token, (req, res) => {
 router.get("/products/user/:id", (req, res) => {
   let id = req.params.id;
 
-  let sql = `SELECT products.id, products.names, products.price, products.description, products.category, products.image FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.user_affiliate = ${id};`;
+  let sql = `SELECT products.id, products.names, products.price, products.new_price, products.description, products.category, products.image FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.user_affiliate = ${id};`;
 
   con.query(sql, (err, result) => {
     if (err) throw err;
     res.status(200).send(result);
+  });
+});
+
+
+// EDIT A PRODUCT
+router.put("/product/edit", (req, res) => {
+  let names = req.body.names;
+  let price = req.body.price;
+  let newPrice = req.body.newPrice;
+  let category = req.body.category;
+  let description = req.body.description;
+  let image = req.body.image;
+  let id = req.body.id;
+  let check = `SELECT id FROM products WHERE id = '${id}';`;
+  con.query(check, (err, result) => {
+    if (err) throw err;
+
+    if (!result.length) {
+      res.status(200).send("This product doesn't exist");
+    } else {
+      let verif = `UPDATE products SET names = '${names}',price = '${price}', new_price = '${newPrice}',category = '${category}', image = '${image}',description = '${description}' WHERE products.id = '${id}'`;
+      con.query(verif, (err, result) => {
+        if (err) throw err;
+        else {
+          res.status(200).send("PRODUCT UPDATED");
+        }
+      });
+    }
   });
 });
 

@@ -11,6 +11,7 @@ class Header extends React.Component {
   };
   onSignout = () => {
     this.props.signoutAction();
+    this.props.history.push("/");
   };
 
   render() {

@@ -10,6 +10,7 @@ class EditProduct extends React.Component {
     this.state = {
       name: "",
       price: "",
+      newPrice:"",
       description: "",
       category: "",
       image: "",
@@ -56,6 +57,12 @@ class EditProduct extends React.Component {
     });
   };
 
+  handleProductnewpriceChange = (e) => {
+    this.setState({
+      newPrice: e.target.value,
+    });
+  };
+
   handleProductdescriptionChange = (e) => {
     this.setState({
       description: e.target.value,
@@ -88,6 +95,7 @@ class EditProduct extends React.Component {
     let formInfo = {
       names: this.state.name,
       price: this.state.price,
+      newPrice: this.state.newPrice,
       description: this.state.description,
       category: this.state.category,
       image: this.state.image,
@@ -151,6 +159,19 @@ class EditProduct extends React.Component {
                 </span>
               </Form.Group>
 
+              <Form.Group controlId="formBasicNewPriceEditProduct">
+                <span className="input-container">
+                  <Form.Control
+                    onChange={this.handleProductnewpriceChange}
+                    type="number"
+                    min="1"
+                    step="0.1"
+                    placeholder="Enter a new price"
+                    autoComplete="off"
+                  />
+                </span>
+              </Form.Group>
+
               <Form.Group controlId="formBasicCategoryEditProduct">
                 <span className="input-container">
                   <Form.Control
@@ -161,15 +182,6 @@ class EditProduct extends React.Component {
                   />
                 </span>
               </Form.Group>
-
-              {/* <Form.Group controlId="formBasicDescription">
-            <Form.Label>Short description</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="description"
-              onChange={this.handleProductdescriptionChange}
-            />
-          </Form.Group> */}
 
               <Form.Group controlId="formBasicImageEditProduct">
                 <span className="input-container">

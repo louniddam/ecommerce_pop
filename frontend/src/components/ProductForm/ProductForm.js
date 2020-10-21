@@ -15,6 +15,7 @@ class Product_form extends React.Component {
     this.state = {
       name: "",
       price: "",
+      newPrice:"",
       description: "",
       category: "",
       image: "",
@@ -35,6 +36,12 @@ class Product_form extends React.Component {
   handleProductpriceChange = (e) => {
     this.setState({
       price: e.target.value,
+    });
+  };
+
+  handleProductnewpriceChange = (e) => {
+    this.setState({
+      newPrice: e.target.value,
     });
   };
 
@@ -70,6 +77,7 @@ class Product_form extends React.Component {
     let formInfo = {
       names: this.state.name,
       price: this.state.price,
+      newPrice: this.state.newPrice,
       description: this.state.description,
       category: this.state.category,
       image: this.state.image,
@@ -137,6 +145,19 @@ class Product_form extends React.Component {
                     step="0.1"
                     placeholder="Enter price"
                     defaultValue="€"
+                    autoComplete="off"
+                  />
+                </span>
+              </Form.Group>
+
+              <Form.Group controlId="formBasicNewPriceEditProduct">
+                <span className="input-container">
+                  <Form.Control
+                    onChange={this.handleProductnewpriceChange}
+                    type="number"
+                    min="1"
+                    step="0.1"
+                    placeholder="Enter a new price"
                     autoComplete="off"
                   />
                 </span>

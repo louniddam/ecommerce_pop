@@ -65,12 +65,13 @@ class ListProducts extends React.Component {
                 <div className="names_product">{item.names}</div>
                 <img className="image_product" src={item.image} />
                 <div className="price_product">{item.price}</div>
+                <div className="price_product">{item.new_price}</div>
                 <div className="description_product">{item.description}</div>
                 <button onClick={() => this.addToCart(item)}>
                   ADD TO CART
                 </button>
                 <button onClick={() => this.removeToCart(item)}>
-                  REMOVE 1 TO CART
+                  REMOVE FROM CART
                 </button>
                 <button onClick={() => this.clickedProduct(item.id)}>
                   More Info
