@@ -7,6 +7,7 @@ import Header from "../header/Header";
 import { withRouter } from "react-router";
 import { getProductsAction } from "../../storeRedux/actions/getProductsActions";
 import { getIdProductAction } from "../../storeRedux/actions/getProductIdActions";
+import { deleteProduct } from "../../storeRedux/actions/deleteProductActions";
 class ProfilUser extends React.Component {
   constructor() {
     super();
@@ -22,8 +23,7 @@ class ProfilUser extends React.Component {
     };
   }
   componentDidMount() {
-    if(this.props.signinStore.userToken)
-    this.getAllProductsUser();
+    if (this.props.signinStore.userToken) this.getAllProductsUser();
   }
 
   onSubmitHandler = (e) => {
@@ -68,8 +68,8 @@ class ProfilUser extends React.Component {
           this.setState({
             failEdit: "true",
           });
-          console.log('lol');
-          this.props.history.push('/')
+          console.log("lol");
+          this.props.history.push("/");
         }
       })
       .catch((err) => {
@@ -98,13 +98,22 @@ class ProfilUser extends React.Component {
     this.props.getIdProductAction(itemId);
     this.props.history.push("/edit-product");
   };
+
+  onDeleteProduct = (idProductDeleted) => {
+    let deletedProductIndex = this.state.allProduct.findIndex(
+      (product) => product.id === idProductDeleted
+    );
+    this.setState({
+      allProduct: this.state.allProduct.slice(0, deletedProductIndex),
+    });
+  };
   deleteProduct = (itemId) => {
-    let x = itemId;
     axios
-      .delete(`http://localhost:8000/product/delete/${x}`)
+      .delete(`http://localhost:8000/product/delete/${itemId}`)
       .then((response) => {
         if (response.data === "PRODUCT DELETED") {
-          this.getAllProductsUser();
+          this.props.deleteProduct(itemId);
+          this.onDeleteProduct(itemId);
         }
       })
       .catch((err) => {
@@ -176,7 +185,11 @@ class ProfilUser extends React.Component {
             <li className="li_solo_product" key={item.id}>
               <div className="card_product">
                 <div className="names_product">{item.names}</div>
-                <img className="image_product" src={item.image} alt="product img"/>
+                <img
+                  className="image_product"
+                  src={item.image}
+                  alt="product img"
+                />
                 <div className="price_product">{item.price}</div>
                 <div className="newprice_product">{item.new_price}</div>
                 <div className="description_product">{item.description}</div>
@@ -208,6 +221,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getProductsAction,
   getIdProductAction,
+  deleteProduct,
 };
 export default connect(
   mapStateToProps,

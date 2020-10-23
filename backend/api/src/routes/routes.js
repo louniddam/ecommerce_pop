@@ -108,7 +108,11 @@ router.post("/users/sign-in", (req, res) => {
 router.get("/users/:id", verif_token, (req, res) => {
   let id = req.params.id;
 
-  let sql = `SELECT users.name, users.email, products.names FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE users.id = ${id};`;
+  let sql = `SELECT users.name, users.email, products.names 
+  FROM  users 
+  INNER JOIN products 
+  ON users.id = products.user_affiliate 
+  WHERE users.id = ${id};`;
 
   con.query(sql, (err, result) => {
     if (err) throw err;

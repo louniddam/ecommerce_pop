@@ -10,6 +10,20 @@ const intialState = {
 
 const addProductToCartReducer = (state = intialState, action) => {
   switch (action.type) {
+    case "DELETE_PRODUCT":
+      let deletedProductIndex = state.product.findIndex(
+        (product) => product.p.id === action.payload
+      );
+      console.log(deletedProductIndex);
+
+      return {
+        ...state,
+        product: [
+          ...state.product.splice(0, deletedProductIndex),
+          ...state.product.splice(deletedProductIndex + 1),
+        ],
+      };
+
     case "ADD_PRODUCT_TO_CART":
       // WE LOOK FOR INDEX AND ID OF THE PRODUCT SELECTED
       let addedProductID = state.product.find(
