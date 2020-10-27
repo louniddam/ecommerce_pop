@@ -15,11 +15,13 @@ class Product_form extends React.Component {
     this.state = {
       name: "",
       price: "",
-      newPrice:"",
+      newPrice: "",
       description: "",
       category: "",
       image: "",
       badProduct: false,
+      ourInput: [],
+      ourInputValue: [],
     };
   }
 
@@ -63,6 +65,20 @@ class Product_form extends React.Component {
     });
   };
 
+  handleNewInput = (e, id, index) => {
+    this.setState({
+      ourInputValue: [
+        ...this.state.ourInputValue.slice(0, index),
+        { id_image: e.target.value },
+        ...this.state.ourInputValue.slice(
+          index + 1,
+          this.state.ourInputValue.length
+        ),
+      ],
+    });
+    console.log(this.state.ourInputValue);
+  };
+
   handleReset = () => {
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
@@ -71,9 +87,10 @@ class Product_form extends React.Component {
       itemvalues: [{}],
     });
   };
-
+  getLastInputValue = () => {
+    // this.state.ourInputValue;
+  };
   formComplete = () => {
-    console.log("aaa");
     let formInfo = {
       names: this.state.name,
       price: this.state.price,
@@ -82,6 +99,7 @@ class Product_form extends React.Component {
       category: this.state.category,
       image: this.state.image,
       user_affiliate: this.props.signinStore.userInfo.id,
+      id_image: this.state.ourInputValue,
     };
     console.log(formInfo);
     const headers = {
@@ -102,7 +120,7 @@ class Product_form extends React.Component {
           this.setState({
             badProduct: false,
           });
-          this.props.history.push('/')
+          this.props.history.push("/");
           console.log("k");
         } else {
           console.log("bugguouille");
@@ -112,8 +130,18 @@ class Product_form extends React.Component {
         console.log(err);
       });
   };
+  addInput = () => {
+    let idInput = 1;
+    this.state.ourInput.forEach((element) => {
+      idInput += 1;
+    });
+    let newInput = { id: idInput };
+
+    this.setState({
+      ourInput: [...this.state.ourInput, newInput],
+    });
+  };
   render() {
-    console.log(this);
     return (
       <div>
         <Header></Header>
@@ -194,7 +222,9 @@ class Product_form extends React.Component {
               </Form.Group>
 
               <Form.Group controlId="textareaFormProduct">
-                <Form.Label className="label_area">Product description</Form.Label>
+                <Form.Label className="label_area">
+                  Product description
+                </Form.Label>
                 <Form.Control
                   as="textarea"
                   rows="3"
@@ -210,6 +240,18 @@ class Product_form extends React.Component {
               >
                 Add
               </button>
+              <button onClick={() => this.addInput()}>
+                Add an image to the product
+              </button>
+              {this.state.ourInput.map((elem, index) => (
+                <div key={elem.id}>
+                  <input
+                    type="text"
+                    onChange={(e) => this.handleNewInput(e, elem.id, index)}
+                  ></input>
+                  <button>localhost</button>
+                </div>
+              ))}
             </Form>
           </div>
         </div>
@@ -221,4 +263,7 @@ const mapStateToProps = (state) => ({
   signinStore: state.signin,
 });
 const mapDispatchToProps = { addProductAction };
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Product_form));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Product_form));

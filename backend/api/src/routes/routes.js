@@ -131,14 +131,44 @@ router.post("/products", verif_token, (req, res) => {
   let description = req.body.description;
   let image = req.body.image;
   let user_affiliate = req.body.user_affiliate;
+  let id_image = req.body.id_image;
+  let tableau = [];
+  id_image.forEach((element) => {
+    tableau.push(Object.values(element));
+  });
 
+  console.log(tableau);
   let sql = `INSERT INTO products (names, price, new_price,category, description, image, user_affiliate) VALUES('${names}','${price}','${newPrice}', '${category}','${description}','${image}','${user_affiliate}');`;
 
+  // let testsql = `BEGIN TRANSACTION
+  //               INSERT INTO products (names, price, new_price,category, description, image, user_affiliate) VALUES('${names}','${price}','${newPrice}', '${category}','${description}','${image}','${user_affiliate}');
+  //               SELECT products.id FROM products WHERE products.image = '${image}';
+  //               INSERT INTO lk_product_image (id_image,id_product) VALUES ?
+  //               COMMIT`;
   con.query(sql, (err, result) => {
     if (err) throw err;
+    console.log("1 record inserted, ID: " + result.insertId);
+    // con.query(
+    //   `SELECT products.id FROM products WHERE products.image = '${image}'`,
+    //   (err, result) => {
+    //     if (err) throw err;
+    //     console.log(result);
+    tableau.forEach((element) => {
+      element.push(result.insertId);
+    });
+    console.log(tableau);
+    con.query(
+      "INSERT INTO lk_product_image (id_image, id_product) VALUES ?",
+      [tableau, [result.insertId]],
 
-    res.status(200).send(result);
+      (err, resultatos) => {
+        if (err) throw err;
+        console.log("lou");
+        res.status(200).send(resultatos);
+      }
+    );
   });
+  // });
 });
 //GET ALL PRODUCTS
 router.get("/products", verif_token, (req, res) => {
