@@ -3,13 +3,36 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import Header from "../header/Header";
 import { addToTheCart } from "../../storeRedux/actions/addToCartActions";
+import Axios from "axios";
 class Cart extends React.Component {
   constructor() {
     super();
   }
 
+  prepareCartPost = () => {
+    let tab = [];
+    for(let i = 0; i < this.props.cartR.product.length; i++){
+      tab.push({
+        names: this.props.cartR.product[i].p.names,
+        price: this.props.cartR.product[i].p.price,
+        new_price: this.props.cartR.product[i].p.new_price,
+        description: this.props.cartR.product[i].p.description,
+        category: this.props.cartR.product[i].p.category,
+        id: this.props.cartR.product[i].p.id,
+        image: this.props.cartR.product[i].p.image,
+      })
+    }
+    Axios.post('http://localhost:8000/add-cart', tab)
+    .then((response) =>{
+      console.log(response);
+    })
+  }
+
+
   render() {
+    console.log(this.props.cartR.product[0].p, "iam cartR");
     const products = this.props.cartR.product;
+    
     return (
       <div>
         <Header></Header>
@@ -28,6 +51,7 @@ class Cart extends React.Component {
             </li>
           ))}
         </ul>
+        <button onClick={this.prepareCartPost()}>pouet</button>
       </div>
     );
   }

@@ -126,7 +126,7 @@ router.get("/users/:id", verif_token, (req, res) => {
 router.post("/products", verif_token, (req, res) => {
   let names = req.body.names;
   let price = req.body.price;
-  let newPrice = req.body.newPrice;
+  let newPrice = req.body.newPrice  || 0;
   let category = req.body.category;
   let description = req.body.description;
   let image = req.body.image;
@@ -136,9 +136,12 @@ router.post("/products", verif_token, (req, res) => {
   id_image.forEach((element) => {
     tableau.push(Object.values(element));
   });
+  console.log('aa');
+  console.log(newPrice);
+  console.log('aa');
 
-  console.log(tableau);
-  let sql = `INSERT INTO products (names, price, new_price,category, description, image, user_affiliate) VALUES('${names}','${price}','${newPrice}', '${category}','${description}','${image}','${user_affiliate}');`;
+
+  let sql = `INSERT INTO products (names, price, new_price, category, description, image, user_affiliate) VALUES('${names}','${price}','${newPrice}', '${category}','${description}','${image}','${user_affiliate}');`;
 
   // let testsql = `BEGIN TRANSACTION
   //               INSERT INTO products (names, price, new_price,category, description, image, user_affiliate) VALUES('${names}','${price}','${newPrice}', '${category}','${description}','${image}','${user_affiliate}');
@@ -147,26 +150,32 @@ router.post("/products", verif_token, (req, res) => {
   //               COMMIT`;
   con.query(sql, (err, result) => {
     if (err) throw err;
-    console.log("1 record inserted, ID: " + result.insertId);
-    // con.query(
-    //   `SELECT products.id FROM products WHERE products.image = '${image}'`,
-    //   (err, result) => {
-    //     if (err) throw err;
-    //     console.log(result);
-    tableau.forEach((element) => {
-      element.push(result.insertId);
-    });
-    console.log(tableau);
-    con.query(
-      "INSERT INTO lk_product_image (id_image, id_product) VALUES ?",
-      [tableau, [result.insertId]],
-
-      (err, resultatos) => {
-        if (err) throw err;
-        console.log("lou");
-        res.status(200).send(resultatos);
-      }
-    );
+    else if(tableau.length){
+      console.log("1 record inserted, ID: " + result.insertId);
+    
+      // con.query(
+      //   `SELECT products.id FROM products WHERE products.image = '${image}'`,
+      //   (err, result) => {
+      //     if (err) throw err;
+      //     console.log(result);
+      tableau.forEach((element) => {
+        element.push(result.insertId);
+      });
+    
+      con.query(
+        "INSERT INTO lk_product_image (id_image, id_product) VALUES ?",
+        [tableau, result.insertId],
+  
+        (err, resultatos) => {
+          if (err) throw err;
+          console.log("lou");
+          res.status(200).send(resultatos);
+        }
+      );
+    }else{
+      res.status(200).send(result)
+    }
+  
   });
   // });
 });
@@ -184,7 +193,8 @@ router.get("/products", verif_token, (req, res) => {
 router.get("/products/:id", verif_token, (req, res) => {
   let id = req.params.id;
 
-  let sql = `SELECT products.id, products.names, products.price, products.new_price, products.description, products.category, products.image, users.name FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.id = ${id};`;
+  let sql = `SELECT products.id, products.names, products.price, products.new_price, products.description, products.category, products.image, users.name 
+  FROM  users INNER JOIN products ON users.id = products.user_affiliate WHERE products.id = ${id};`;
 
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -244,4 +254,13 @@ router.delete("/product/delete/:id", (req, res) => {
     }
   });
 });
+
+// CART
+
+  //Post the cart
+  router.post('/add-cart', (req,res)=>{
+    const products = req.body;
+    console.log(products);
+  });
+
 module.exports = router;
