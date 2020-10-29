@@ -118,6 +118,7 @@ class EditProduct extends React.Component {
   };
   render() {
     if (this.state.item[0] !== undefined) console.log(this.state.item[0].id);
+    
     return (
       <div>
         <Header></Header>

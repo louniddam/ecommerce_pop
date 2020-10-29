@@ -13,25 +13,31 @@ class Cart extends React.Component {
     let tab = [];
     for(let i = 0; i < this.props.cartR.product.length; i++){
       tab.push({
-        names: this.props.cartR.product[i].p.names,
-        price: this.props.cartR.product[i].p.price,
-        new_price: this.props.cartR.product[i].p.new_price,
-        description: this.props.cartR.product[i].p.description,
-        category: this.props.cartR.product[i].p.category,
         id: this.props.cartR.product[i].p.id,
-        image: this.props.cartR.product[i].p.image,
+        qty: this.props.cartR.product[i].qty,
+        // names: this.props.cartR.product[i].p.names,
+        // total: this.props.cartR.totalPrice,
+        // price: this.props.cartR.product[i].p.price,
+        // new_price: this.props.cartR.product[i].p.new_price,
+        // description: this.props.cartR.product[i].p.description,
+        // category: this.props.cartR.product[i].p.category,
+        // image: this.props.cartR.product[i].p.image,
       })
     }
-    Axios.post('http://localhost:8000/add-cart', tab)
+    Axios.post('http://localhost:8000/add-cart', {tab})
     .then((response) =>{
       console.log(response);
+    })
+    .catch((err)=>{
+      console.log(err);
     })
   }
 
 
   render() {
-    console.log(this.props.cartR.product[0].p, "iam cartR");
+    // console.log(this.props.cartR.product[0].p, "iam cartR");
     const products = this.props.cartR.product;
+    console.log(products);
     
     return (
       <div>
@@ -51,7 +57,7 @@ class Cart extends React.Component {
             </li>
           ))}
         </ul>
-        <button onClick={this.prepareCartPost()}>pouet</button>
+        <button onClick={()=> this.prepareCartPost()}>pouet</button>
       </div>
     );
   }

@@ -6,8 +6,8 @@ require("dotenv").config();
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "ecommerce",
+  password: "rootroot",
+  database: "pop_db",
 });
 
 con.connect((err) => {
