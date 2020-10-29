@@ -11,6 +11,15 @@ class Cart extends React.Component {
 
   prepareCartPost = () => {
     let tab = [];
+
+    let tabOfPrice = [];
+    for(let i = 0; i < this.props.cartR.product.length; i++){
+      tabOfPrice.push({
+        price: this.props.cartR.product[i].p.price,
+        qty: this.props.cartR.product[i].qty,
+      })
+    }
+
     for(let i = 0; i < this.props.cartR.product.length; i++){
       tab.push({
         id: this.props.cartR.product[i].p.id,
@@ -24,7 +33,7 @@ class Cart extends React.Component {
         // image: this.props.cartR.product[i].p.image,
       })
     }
-    Axios.post('http://localhost:8000/add-cart', {tab})
+    Axios.post('http://localhost:8000/add-cart', {tab: tab, total: tabOfPrice})
     .then((response) =>{
       console.log(response);
     })
@@ -36,8 +45,9 @@ class Cart extends React.Component {
 
   render() {
     // console.log(this.props.cartR.product[0].p, "iam cartR");
+    console.log(this.props, "iam the props");
     const products = this.props.cartR.product;
-    console.log(products);
+
     
     return (
       <div>

@@ -261,9 +261,23 @@ router.delete("/product/delete/:id", (req, res) => {
   router.post('/add-cart', (req,res)=>{
     console.log(req.body.tab);
     let tab = req.body.tab
-    let total = 10;
-    let sql = `INSERT INTO cart (date, total) VALUES (NOW(), '${total}')`;
 
+    //Pour le total
+    const tabPrice = req.body.total;
+    let tableauPrice = [];
+    let priceArray = 0
+
+    tabPrice.forEach((element) => {
+      tableauPrice.push(Object.values(element));
+    });
+
+    for(let i = 0; i < tabPrice.length; i++){
+      priceArray = priceArray + (tableauPrice[i][0] * tableauPrice[i][1])
+    }
+    
+    let sql = `INSERT INTO cart (date, total) VALUES (NOW(), '${priceArray}')`;
+
+    //Pour cart_product
     let tableau = [];
     tab.forEach((element) => {
       tableau.push(Object.values(element));
@@ -286,6 +300,11 @@ router.delete("/product/delete/:id", (req, res) => {
       else
       res.status(200).send("Cart is empty")
     })
+  });
+
+  //GET TOTAL
+  router.post('/cart-total-price', (req, res)=>{
+
   });
 
 module.exports = router;
